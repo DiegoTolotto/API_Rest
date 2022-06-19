@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16",
+    "path": "^0.12.7"
+  },
+  "name": "api_rest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/app.js"
+  },
+  "author": "Diego Nunes Tolotto",
+  "license": "ISC",
+  "type": "module",
+  "description": "",
+  "devDependencies": {
+    "sqlite3": "^5.0.8"
+  }
+}
