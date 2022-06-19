@@ -24,7 +24,7 @@ class Controller {
             }   
         });
 
-        app.post('/clientes', async (req, res) => {
+        app.post('/users', async (req, res) => {
             const valido = Validacoes.validaNome(req.body.nome) &&
                            Validacoes.validaEmail(req.body.email) &&
                            Validacoes.validaTelefone(req.body.telefone);
@@ -36,13 +36,13 @@ class Controller {
                 } else {
                     throw new Error("Pedido invalido.");
                 }
-                
+                    
             } catch (error) {
                 res.status(400).json({error: error.message})             
             }
         })
 
-        app.put('/clientes/:nome', async (req, res) => {
+        app.put('/users/:nome', async (req, res) => {
             try {
                 const nome = req.params.nome;
                 const clienteAtualizado = new ClienteModel(...Object.values(req.body));
@@ -53,10 +53,10 @@ class Controller {
             }
         });
 
-        app.delete('/clientes/:nome', async (req, res) => {
+        app.delete('/users/:nome', async (req, res) => {
             try {
                 const nome = req.params.nome;
-                const resposta = await ClienteMetodos.deletaPorNome(nome); 
+                const resposta = await Metodos.deletaPorNome(nome); 
                 res.status(200).json({mensagem: resposta});
             } catch (error) {
                 res.status(400).json({erro: error.message});
