@@ -4,9 +4,9 @@ export default class Validacoes {
         return nomeV.test(str)
     }
 
-    static validaTelefone(str) {
-        const telV = /^\([0-9]{2}\) ?9[0-9]{4}-?[0-9]{4}$/
-        return telV.test(str);
+    static validaTelefone(telefone){
+        const telefoneNum = parseInt(telefone)
+        return telefone.length == 11 && telefoneNum == telefone
     }
 
     static validaEmail(str) {

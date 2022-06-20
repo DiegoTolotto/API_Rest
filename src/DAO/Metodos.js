@@ -5,7 +5,8 @@ import Database from "../infra/Database.js";
 export default class Metodos {
     static criaTab () {
         const query = `CREATE TABLE IF NOT EXISTS clientes (
-            nome VARCHAR PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome VARCHAR,
             email VARCHAR,
             telefone VARCHAR 
         )`
@@ -18,7 +19,7 @@ export default class Metodos {
     }
 
     static insereCliente(cliente){
-        const query = `INSERT INTO clientes VALUES (?,?,?)`
+        const query = `INSERT INTO clientes (nome, email, telefone) VALUES (?,?,?)`
         const clienteArr = Object.values(cliente);
         return new Promise ((resolve, reject) => {
             Database.run(query, clienteArr, error => {
@@ -38,18 +39,18 @@ export default class Metodos {
         });
     }
 
-    static listaClientePorNome(nome) {
-        const query = `SELECT * FROM clientes WHERE nome = ${nome}`;
+    static listaClientePorId(id) {
+        const query = `SELECT * FROM clientes WHERE id = ${id}`;
         return new Promise((resolve, reject) =>{
-            Database.all(query,(error, registros) => {
+            Database.get(query,(error, registros) => {
                 if (error) reject(error.message);
                 else resolve({clientes: registros});
             });
         });
     }
 
-    static atualizaPorNome(nome, cliente) {
-        const query = `UPDATE clientes SET(nome,nome,telefone)=(?,?,?) WHERE nome=${nome}`;
+    static atualizaPorId(id, cliente) {
+        const query = `UPDATE clientes SET(nome, email, telefone)=(?,?,?) WHERE id=${id}`;
         const clienteArr = Object.values(cliente);
         return new Promise((resolve, reject) => {
             Database.run(query, clienteArr, error => {
@@ -59,8 +60,8 @@ export default class Metodos {
         });
     }
 
-    static deletaPorNome(nome) {
-        const query = `DELETE FROM clientes WHERE nome=${nome}`;
+    static deletaPorId(id) {
+        const query = `DELETE FROM clientes WHERE id=${id}`;
         return new Promise((resolve, reject) => {
             Database.run(query, error => {
                 if (error) reject(error.message);

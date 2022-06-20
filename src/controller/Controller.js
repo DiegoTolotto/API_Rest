@@ -16,8 +16,8 @@ class Controller {
 
         app.get('/users/:id', async (req, res) => {
             try {
-                const nome = req.params.cpf;
-                const resposta = await Metodos.listaClientePorNome(nome);
+                const id = req.params.id;
+                const resposta = await Metodos.listaClientePorId(id);
                 res.status(200).json({mensage: resposta})
             } catch (error) {
                 res.status(400).json({erro: error.message});
@@ -42,21 +42,21 @@ class Controller {
             }
         })
 
-        app.put('/users/:nome', async (req, res) => {
+        app.put('/users/:id', async (req, res) => {
             try {
-                const nome = req.params.nome;
+                const id = req.params.id;
                 const clienteAtualizado = new ClienteModel(...Object.values(req.body));
-                const resposta = await Metodos.atualizaPorNome(nome, clienteAtualizado);
+                const resposta = await Metodos.atualizaPorId(id, clienteAtualizado);
                 res.status(200).json({mensagem: resposta});
             } catch (error) {
                 res.status(400).json({erro: error.message});
             }
         });
 
-        app.delete('/users/:nome', async (req, res) => {
+        app.delete('/users/:id', async (req, res) => {
             try {
-                const nome = req.params.nome;
-                const resposta = await Metodos.deletaPorNome(nome); 
+                const id = req.params.id;
+                const resposta = await Metodos.deletaPorId(id); 
                 res.status(200).json({mensagem: resposta});
             } catch (error) {
                 res.status(400).json({erro: error.message});
